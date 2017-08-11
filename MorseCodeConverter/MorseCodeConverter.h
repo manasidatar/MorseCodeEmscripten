@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
 // DLL import/export definitions
 #ifdef MORSECODECONVERTER_EXPORTS
@@ -37,6 +38,9 @@ protected:
 
   int t2m(); // convert text string to Morse string
   int m2t(); // convert Morse string to text string
+
+  // utility function
+  std::vector<std::string> splitOnSpaces(const std::string& inStr);
 
 private:
   MorseCodeConverter(const MorseCodeConverter&); //! Copy constructor, **not implemented**!

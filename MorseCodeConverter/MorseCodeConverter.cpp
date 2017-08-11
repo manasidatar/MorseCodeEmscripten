@@ -1,4 +1,5 @@
 #include "MorseCodeConverter.h"
+#include <sstream>
 
 // constructor
 MorseCodeConverter::MorseCodeConverter() : m_sText(""), m_sMorse(""), m_textToMorse(1)
@@ -65,7 +66,6 @@ MorseCodeConverter::~MorseCodeConverter()
   {
     // convert input to lowercase
     // split on spaces
-
     // convert and append
     m_sMorse = "";
     for (int i = 0; i < m_sText.size(); i++)
@@ -76,13 +76,26 @@ MorseCodeConverter::~MorseCodeConverter()
   int MorseCodeConverter::m2t()
   {
     // split on double spaces
+
     // split on spaces
+    std::vector<std::string> sParts = splitOnSpaces(m_sMorse);
 
     // convert and append
     m_sText = "";
-    for (int i = 0; i < m_sMorse.size(); i++)
-      m_sText += m_mT2M[m_sMorse[i]];
+    for (int i = 0; i < sParts.size(); i++)
+      m_sText += m_mM2T[sParts[i]];
     return 0;
+  }
+
+  std::vector<std::string> MorseCodeConverter::splitOnSpaces(const std::string& inStr)
+  {
+    std::vector<std::string> splitStr; splitStr.clear();
+    std::stringstream strStream(inStr);
+    std::string currPart("");
+
+    while (strStream >> currPart) splitStr.push_back(currPart);
+
+    return splitStr;
   }
 
 // public

@@ -40,6 +40,11 @@ int main(int argc, char** argv)
   testConverter->getConvertedString(outStr);
   std::cout << outStr << std::endl;
 
+  testConverter->setMorseString("... --- ...");
+  testConverter->performConversion();
+  testConverter->getConvertedString(outStr);
+  std::cout << outStr << std::endl;
+
   // clean up
   delete testConverter;
 
