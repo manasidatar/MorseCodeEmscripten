@@ -35,7 +35,7 @@ int main(int argc, char** argv)
   std::string outStr("");
 
   // perform conversion
-  testConverter->setTextString("dummy");
+  testConverter->setTextString("sos");
   testConverter->performConversion();
   testConverter->getConvertedString(outStr);
   std::cout << outStr << std::endl;

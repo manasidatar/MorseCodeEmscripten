@@ -2,6 +2,7 @@
 #define __MORSECODECONVERTER_H__
 
 #include <string>
+#include <map>
 
 // DLL import/export definitions
 #ifdef MORSECODECONVERTER_EXPORTS
@@ -26,10 +27,13 @@ public:
   virtual int getConvertedString(std::string &outString);
 
 protected:
-  // create map object
   std::string m_sText;
   std::string m_sMorse;
   bool m_textToMorse;
+
+  std::map<char, std::string> m_mT2M;
+  std::map<std::string, char> m_mM2T;
+
 
   int t2m(); // convert text string to Morse string
   int m2t(); // convert Morse string to text string
