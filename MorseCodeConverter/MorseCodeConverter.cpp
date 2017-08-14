@@ -1,4 +1,5 @@
 #include "MorseCodeConverter.h"
+
 #include <sstream>
 #include <iostream>
 #include <algorithm>
@@ -143,8 +144,7 @@ int MorseCodeConverter::performConversion()
   return (m_textToMorse) ? t2m() : m2t();
 }
 
-int MorseCodeConverter::getConvertedString(std::string &outString)
+std::string MorseCodeConverter::getConvertedString()
 {
-  outString = (m_textToMorse) ? m_sMorse : m_sText;
-  return 0;
+  return (m_textToMorse) ? m_sMorse : m_sText;
 }
