@@ -33,12 +33,13 @@ int main(int argc, char** argv)
   // check if string is given
   if (argc != 2)
   {
-    std::cout <<
-      "Single word conversion: enter text word or Morse code with single-space separator" <<
+    std::cout << "Enter regular text or Morse code" << std::endl <<
+      "Morse code rule: single space separating alphabets, double space separating words." <<
       std::endl;
 
     return -1;
   }
+
   // initialize
   MorseCodeConverter *testConverter = new MorseCodeConverter();
   std::string outStr("");

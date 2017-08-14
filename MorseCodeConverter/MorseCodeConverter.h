@@ -40,7 +40,7 @@ protected:
   int m2t(); // convert Morse string to text string
 
   // utility function
-  std::vector<std::string> splitOnSpaces(const std::string& inStr);
+  std::vector<std::string> splitStringOnDelim(const std::string& inStr, const std::string& delim);
 
 private:
   MorseCodeConverter(const MorseCodeConverter&); //! Copy constructor, **not implemented**!

@@ -1,5 +1,7 @@
 #include "MorseCodeConverter.h"
 #include <sstream>
+#include <iostream>
+#include <algorithm>
 
 // constructor
 MorseCodeConverter::MorseCodeConverter() : m_sText(""), m_sMorse(""), m_textToMorse(1)
@@ -47,8 +49,6 @@ MorseCodeConverter::MorseCodeConverter() : m_sText(""), m_sMorse(""), m_textToMo
   m_mM2T.clear();
   for (std::map<char, std::string>::iterator i = m_mT2M.begin(); i != m_mT2M.end(); i++)
     m_mM2T[i->second] = i->first;
-  m_mM2T[" "] = '\0';
-  m_mM2T["  "] = ' ';
 }
 
 // destructor
@@ -62,38 +62,61 @@ MorseCodeConverter::~MorseCodeConverter()
 }
 
 // protected
+
+// function to convert text to Morse code
   int MorseCodeConverter::t2m()
   {
-    // convert input to lowercase
-    // split on spaces
+    // convert input text to lowercase
+    std::string tmpStr(m_sText);
+    std::transform(tmpStr.begin(), tmpStr.end(), tmpStr.begin(), ::tolower);
+
     // convert and append
     m_sMorse = "";
-    for (int i = 0; i < m_sText.size(); i++)
-      m_sMorse += m_mT2M[m_sText[i]];
+    for (int i = 0; i < tmpStr.size(); i++) m_sMorse += m_mT2M[tmpStr[i]] + " ";
+
+    tmpStr = "";
     return 0;
   }
 
+  // function to convert Morse code to text
   int MorseCodeConverter::m2t()
   {
-    // split on double spaces
+    // split words on double spaces
+    std::vector<std::string> morseWords = splitStringOnDelim(m_sMorse, "  ");
 
-    // split on spaces
-    std::vector<std::string> sParts = splitOnSpaces(m_sMorse);
+    // split letters on single spaces
+    std::vector<std::string> morseLetters; morseLetters.clear();
+    std::vector<std::string> cWordVec;
+    for (int w = 0; w < morseWords.size(); w++)
+    {
+      cWordVec.clear();
+      cWordVec = splitStringOnDelim(morseWords[w], " ");
+      morseLetters.insert(morseLetters.end(), cWordVec.begin(), cWordVec.end());
+      morseLetters.push_back(" ");
+    }
+    morseLetters.pop_back(); // remove extra blank space after last word
 
     // convert and append
     m_sText = "";
-    for (int i = 0; i < sParts.size(); i++)
-      m_sText += m_mM2T[sParts[i]];
+    for (int i = 0; i < morseLetters.size(); i++) m_sText += m_mM2T[morseLetters[i]];
+
     return 0;
   }
 
-  std::vector<std::string> MorseCodeConverter::splitOnSpaces(const std::string& inStr)
+  // function to split string based on a given delimiter
+  std::vector<std::string> MorseCodeConverter::splitStringOnDelim(const std::string& inStr,
+    const std::string& delim)
   {
+    std::string tmpStr(inStr);
     std::vector<std::string> splitStr; splitStr.clear();
-    std::stringstream strStream(inStr);
-    std::string currPart("");
+    std::size_t pos = 0;
 
-    while (strStream >> currPart) splitStr.push_back(currPart);
+    while (pos != std::string::npos)
+    {
+      pos = tmpStr.find(delim);
+      splitStr.push_back(tmpStr.substr(0, pos));
+      tmpStr.erase(0, pos + delim.length());
+    }
 
     return splitStr;
   }
@@ -101,17 +124,17 @@ MorseCodeConverter::~MorseCodeConverter()
 // public
 int MorseCodeConverter::setTextString(const std::string inStr)
 {
-  m_sText = inStr;   // set text string
-  m_sMorse = "";     // clear Morse string
-  m_textToMorse = 1; // set boolean for correct conversion
+  m_sText = inStr;
+  m_sMorse = "";
+  m_textToMorse = 1;
   return 0;
 }
 
 int MorseCodeConverter::setMorseString(const std::string inStr)
 {
-  m_sMorse = inStr;  // set Morse string
-  m_sText = "";      // clear text string
-  m_textToMorse = 0; // set boolean for correct conversion
+  m_sMorse = inStr;
+  m_sText = "";
+  m_textToMorse = 0;
   return 0;
 }
 
