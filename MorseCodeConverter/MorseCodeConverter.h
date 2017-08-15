@@ -11,6 +11,7 @@
 using namespace emscripten;
 #endif
 
+#ifndef __EMSCRIPTEN__
 // DLL import/export definitions
 #ifdef MORSECODECONVERTER_EXPORTS
 #define MORSECODECONVERTER_API __declspec(dllexport)
@@ -20,7 +21,9 @@ using namespace emscripten;
 
 //! Main class for MorseCodeConverter.
 class MORSECODECONVERTER_API MorseCodeConverter
-//class MorseCodeConverter
+#else
+class MorseCodeConverter
+#endif
 {
 public:
   MorseCodeConverter();

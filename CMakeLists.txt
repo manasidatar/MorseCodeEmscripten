@@ -1,4 +1,4 @@
-PROJECT(MorseCodeConverter)
+PROJECT(EmscriptenTest)
 
 ADD_SUBDIRECTORY(MorseCodeConverter)
 
