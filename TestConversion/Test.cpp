@@ -20,12 +20,7 @@ int main(int argc, char** argv)
 
   std::string inStr(argv[1]);
 
-  // perform conversion
-  if (inStr[0] == '.' || inStr[0] == '-')
-    testConverter->setMorseString(inStr);
-  else
-    testConverter->setTextString(inStr);
-
+  testConverter->setInputString(inStr);
   testConverter->performConversion();
   outStr = testConverter->getConvertedString();
   std::cout << inStr << " --> " << outStr << std::endl;

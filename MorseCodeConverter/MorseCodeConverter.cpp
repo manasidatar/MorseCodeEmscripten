@@ -123,19 +123,20 @@ MorseCodeConverter::~MorseCodeConverter()
   }
 
 // public
-int MorseCodeConverter::setTextString(const std::string inStr)
+int MorseCodeConverter::setInputString(const std::string& inStr)
 {
-  m_sText = inStr;
-  m_sMorse = "";
-  m_textToMorse = 1;
-  return 0;
-}
+  m_sText = ""; m_sMorse = "";
+  if (inStr[0] == '.' || inStr[0] == '-')
+  {
+    m_sMorse = inStr;
+    m_textToMorse = 0;
+  }
+  else
+  {
+    m_sText = inStr;
+    m_textToMorse = 1;
+  }
 
-int MorseCodeConverter::setMorseString(const std::string inStr)
-{
-  m_sMorse = inStr;
-  m_sText = "";
-  m_textToMorse = 0;
   return 0;
 }
 

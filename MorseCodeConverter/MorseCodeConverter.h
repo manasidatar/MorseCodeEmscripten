@@ -29,9 +29,7 @@ public:
   MorseCodeConverter();
   ~MorseCodeConverter();
 
-  virtual int setTextString(const std::string inStr);
-
-  virtual int setMorseString(const std::string inStr);
+  virtual int setInputString(const std::string& inStr);
 
   virtual int performConversion();
 
@@ -61,8 +59,7 @@ private:
 EMSCRIPTEN_BINDINGS(my_class_example) {
   class_<MorseCodeConverter>("MorseCodeConverter")
     .constructor<>()
-    .function("setTextString", &MorseCodeConverter::setTextString)
-    .function("setMorseString", &MorseCodeConverter::setMorseString)
+    .function("setInputString", &MorseCodeConverter::setInputString)
     .function("performConversion", &MorseCodeConverter::performConversion)
     .function("getConvertedString", &MorseCodeConverter::getConvertedString)
     //.class_function("getStringFromInstance", &MyClass::getStringFromInstance)
