@@ -73,7 +73,12 @@ MorseCodeConverter::~MorseCodeConverter()
 
     // convert and append
     m_sMorse = "";
-    for (int i = 0; i < tmpStr.size(); i++) m_sMorse += m_mT2M[tmpStr[i]] + " ";
+    for (int i = 0; i < tmpStr.size(); i++)
+    {
+      if (tmpStr[i] == ' ') m_sMorse.pop_back(); // spot end of word and remove extra space
+      m_sMorse += m_mT2M[tmpStr[i]] + m_mT2M[' '];
+    }
+    m_sMorse.pop_back(); // remove trailing space
 
     tmpStr = "";
     return 0;
