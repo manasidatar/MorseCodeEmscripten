@@ -1,4 +1,4 @@
-#include "MorseCodeConverter.h"
+﻿#include "MorseCodeConverter.h"
 
 #include <sstream>
 #include <iostream>
@@ -45,6 +45,24 @@ MorseCodeConverter::MorseCodeConverter() : m_sText(""), m_sMorse(""), m_textToMo
   m_mT2M['8'] = "---..";
   m_mT2M['9'] = "----.";
   m_mT2M['0'] = "-----";
+  m_mT2M['.'] = ".-.-.-";
+  m_mT2M[','] = "--..--";
+  m_mT2M['?'] = "..--..";
+  m_mT2M['\''] = ".----.";
+  m_mT2M['!'] = "-.-.--";
+  m_mT2M['/'] = "-..-.";
+  m_mT2M['('] = "-.--.";
+  m_mT2M[')'] = "-.--.-";
+  m_mT2M['&'] = ".-...";
+  m_mT2M[':'] = "---...";
+  m_mT2M[';'] = "-.-.-.";
+  m_mT2M['='] = "-...-";
+  m_mT2M['+'] = ".-.-.";
+  m_mT2M['-'] = "-....-";
+  m_mT2M['_'] = "..--.-";
+  m_mT2M['"'] = ".-..-.";
+  m_mT2M['$'] = "...-..-";
+  m_mT2M['@'] = ".--.-.";
   m_mT2M[' '] = " ";
 
   m_mM2T.clear();
@@ -75,7 +93,7 @@ MorseCodeConverter::~MorseCodeConverter()
     m_sMorse = "";
     for (int i = 0; i < tmpStr.size(); i++)
     {
-      if (tmpStr[i] == ' ') m_sMorse.pop_back(); // spot end of word and remove extra space
+      if (tmpStr[i] == ' ') m_sMorse.pop_back(); // spot end of word and remove trailing space
       m_sMorse += m_mT2M[tmpStr[i]] + m_mT2M[' '];
     }
     m_sMorse.pop_back(); // remove trailing space
@@ -124,6 +142,7 @@ MorseCodeConverter::~MorseCodeConverter()
       tmpStr.erase(0, pos + delim.length());
     }
 
+    tmpStr.clear();
     return splitStr;
   }
 
