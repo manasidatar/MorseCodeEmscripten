@@ -69,7 +69,7 @@ MorseCodeConverter::MorseCodeConverter() : m_sText(""), m_sMorse(""), m_textToMo
   m_mM2T.clear();
   for (std::map<char, std::string>::iterator i = m_mT2M.begin(); i != m_mT2M.end(); i++)
     m_mM2T[i->second] = i->first;
-  m_mM2T["\\n"] = '\n';
+  m_mM2T["\n"] = '\n';
 }
 
 // destructor
