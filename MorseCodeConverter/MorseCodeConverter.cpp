@@ -64,10 +64,12 @@ MorseCodeConverter::MorseCodeConverter() : m_sText(""), m_sMorse(""), m_textToMo
   m_mT2M['$'] = "...-..-";
   m_mT2M['@'] = ".--.-.";
   m_mT2M[' '] = " ";
+  m_mT2M['\n'] = ".-.-";
 
   m_mM2T.clear();
   for (std::map<char, std::string>::iterator i = m_mT2M.begin(); i != m_mT2M.end(); i++)
     m_mM2T[i->second] = i->first;
+  m_mM2T["\\n"] = '\n';
 }
 
 // destructor
@@ -93,8 +95,14 @@ MorseCodeConverter::~MorseCodeConverter()
     m_sMorse = "";
     for (int i = 0; i < tmpStr.size(); i++)
     {
-      if (tmpStr[i] == ' ') m_sMorse.pop_back(); // spot end of word and remove trailing space
+      // remove trailing spaces after words and add space for newline char
+      if      (tmpStr[i] == ' ')  m_sMorse.pop_back();
+      else if (tmpStr[i] == '\n') m_sMorse += m_mT2M[' '];
+
       m_sMorse += m_mT2M[tmpStr[i]] + m_mT2M[' '];
+
+      // add extra trailing space after newline char
+      if (tmpStr[i] == '\n') m_sMorse += m_mT2M[' '];
     }
     m_sMorse.pop_back(); // remove trailing space
 
