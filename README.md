@@ -1,7 +1,7 @@
 # MorseCodeEmscripten
 simple Morse code converter to experiment with Emscripten and C++
 
-Use the CMake flag "BUILD_FOR_EMSCRIPTEN" to switch between JS and EXE targets.
+Use the CMake flag <code>BUILD_FOR_EMSCRIPTEN</code> to switch between JS and EXE targets.
 <ul>
   <li>
     Build EXE using CMake and your favorite compiler.
