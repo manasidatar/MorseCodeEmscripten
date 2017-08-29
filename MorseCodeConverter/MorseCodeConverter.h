@@ -5,13 +5,13 @@
 #include <map>
 #include <vector>
 
-#ifdef __EMSCRIPTEN__
+#ifdef EMSCRIPTEN
 #include <emscripten/bind.h>
 
 using namespace emscripten;
 #endif
 
-#ifndef __EMSCRIPTEN__
+#ifndef EMSCRIPTEN
 // DLL import/export definitions
 #ifdef MORSECODECONVERTER_EXPORTS
 #define MORSECODECONVERTER_API __declspec(dllexport)
@@ -55,7 +55,7 @@ private:
   MorseCodeConverter& operator=(const MorseCodeConverter&); //! Assignment operator, **not implemented**!
 };
 
-#ifdef __EMSCRIPTEN__
+#ifdef EMSCRIPTEN
 EMSCRIPTEN_BINDINGS(my_class_example) {
   class_<MorseCodeConverter>("MorseCodeConverter")
     .constructor<>()
